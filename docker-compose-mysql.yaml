@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: DockerMonitoring
+      MYSQL_USER: grafana
+      MYSQL_PASSWORD: grafana123
+    networks:
+      - monitoring-net
+    volumes:
+      - ./init-mysql.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  monitoring-net:
+    name: monitoring-net  
+    external: true

@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS ContainerMetrics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_time DATETIME NOT NULL,
+    value DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO ContainerMetrics (event_time, value) VALUES
+('2025-10-10 11:00:00', 10.5),
+('2025-10-11 11:00:00', 20.0),
+('2025-10-12 11:00:00', 25.3),
+('2025-10-13 11:00:00', 30.8);

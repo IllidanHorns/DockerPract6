@@ -1,6 +1,18 @@
-version: '3.8'
-
 services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring-net
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - mysql
+
   mysql:
     image: mysql:8.0
     container_name: mysql-db
@@ -14,7 +26,9 @@ services:
     volumes:
       - ./init-mysql.sql:/docker-entrypoint-initdb.d/init.sql
 
+volumes:
+  grafana-storage:
+
 networks:
   monitoring-net:
-    name: monitoring-net  
-    external: true
+    driver: bridge
